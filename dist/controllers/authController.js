@@ -1,6 +1,6 @@
 import { db } from "../drizzle/db.js";
 import { UserTable } from "../drizzle/schema.js";
-import { hashPassword } from "../utils/passwordUtils.js";
+import { hashPassword, comparePasswords } from "../utils/passwordUtils.js";
 import { generateToken } from "../utils/jwtUtils.js";
 import { generateSecretKey } from "../utils/keys.js";
 import { eq } from "drizzle-orm";
@@ -48,4 +48,24 @@ export async function loginUser(req, res) {
         return res.status(400).json({ error: "Email is required" });
     if (!password)
         return res.status(400).json({ error: "Password is required" });
+    try {
+        const user = await db.select().from(UserTable).where(eq(UserTable.email, email));
+        if (user.length === 0)
+            return res.status(404).json({ error: "User with email does not exist" });
+        // validate password
+        const isValidPassword = await comparePasswords(password, user[0].password);
+        if (!isValidPassword)
+            return res.status(401).json({ error: "Invalid password" });
+        // generate token
+        const token = generateToken({ id: user[0].id }, user[0].secret_key);
+        return res.status(200).json({
+            name: user[0].name,
+            email: user[0].email,
+            token
+        });
+    }
+    catch (error) {
+        console.error("Failed to login user");
+        return res.status(501).json({ error: "Failed to login user" });
+    }
 }

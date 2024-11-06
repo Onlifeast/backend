@@ -1,11 +1,10 @@
 import express, { Request, Response } from 'express';
-import { createUser } from '../controllers/authController.js';
+import { createUser, loginUser } from '../controllers/authController.js';
 
 const authRouter = express.Router();
 
 authRouter.post('/login', (req: Request, res: Response) => {
-  // Handle login logic
-  res.send('Login successful');
+  loginUser(req, res);
 });
 
 authRouter.post('/register', (req: Request, res: Response) => {

@@ -1,9 +1,8 @@
 import express from 'express';
-import { createUser } from '../controllers/authController.js';
+import { createUser, loginUser } from '../controllers/authController.js';
 const authRouter = express.Router();
 authRouter.post('/login', (req, res) => {
-    // Handle login logic
-    res.send('Login successful');
+    loginUser(req, res);
 });
 authRouter.post('/register', (req, res) => {
     createUser(req, res);
