@@ -1,0 +1,20 @@
+import express, { Request, Response } from 'express';
+import { createUser } from '../controllers/authController.js';
+
+const authRouter = express.Router();
+
+authRouter.post('/login', (req: Request, res: Response) => {
+  // Handle login logic
+  res.send('Login successful');
+});
+
+authRouter.post('/register', (req: Request, res: Response) => {
+  createUser(req, res);
+});
+
+authRouter.post('/logout', (req: Request, res: Response) => {
+  // Handle logout logic
+  res.send('Logout successful');
+});
+
+export default authRouter;

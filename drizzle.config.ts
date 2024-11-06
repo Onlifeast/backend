@@ -5,7 +5,7 @@ const dbUrl = process.env.DATABASE_URL as string;
 export default defineConfig({
   out: "./src/drizzle/migrations",
   dialect: "postgresql",
-  schema: "./src/drizzle/schema.js",
+  schema: "./src/drizzle/schema.ts",
 
   driver: "pglite",
   dbCredentials: {

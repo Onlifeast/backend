@@ -1,4 +1,5 @@
 import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import crypto from 'crypto';
 
 export const UserTable = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -6,7 +7,7 @@ export const UserTable = pgTable('users', {
   email: varchar('email', { length: 255 }).notNull(),
   password: varchar('password').notNull(),
   role: varchar('role').notNull().default('user'),
-  secretKey: varchar('secret_key').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  secret_key: varchar('secret_key').notNull().default(crypto.randomBytes(32).toString('hex')),
+  created_at: timestamp('created_at').defaultNow().notNull(),
+  updated_at: timestamp('updated_at').defaultNow().notNull(),
 });

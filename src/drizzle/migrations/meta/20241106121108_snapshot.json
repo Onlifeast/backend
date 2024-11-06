@@ -1,5 +1,5 @@
 {
-  "id": "f57b3415-cd39-45d1-8b49-06c0a6a83ce5",
+  "id": "7d63e6a2-fbad-447b-a69c-18b982de1dd5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -39,6 +39,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'user'"
+        },
+        "secret_key": {
+          "name": "secret_key",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'1f952eef6630795fe8c205af820486662085b7f58dddca8842af5c5305adfd85'"
         },
         "created_at": {
           "name": "created_at",
