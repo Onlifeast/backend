@@ -10,6 +10,7 @@ interface CreateUserRequest {
     name: string;
     email: string;
     password: string;
+    phoneNumber: string;
 }
 
 interface loginUserRequest {
@@ -19,12 +20,17 @@ interface loginUserRequest {
 }
 
 export async function createUser(req: Request, res: Response) {
-    const { name, email, password }: CreateUserRequest = req.body;
+    const { name, email, password, phoneNumber }: CreateUserRequest = req.body;
 
     console.log("Received request to create user:", req.body);
     if (!name) return res.status(400).json({ error: "Name is required" });
     if (!email) return res.status(400).json({ error: "Email is required" });
     if (!password) return res.status(400).json({ error: "Password is required" });
+    if (!phoneNumber) return res.status(400).json({ error: "Phone is required" });
+    if (phoneNumber.length < 10) return res.status(400).json({ error: "Phone number must be at least 10 characters long" });
+    if (!phoneNumber.match(/^[0-9]+$/)) return res.status(400).json({ error: "Phone number must be a number" });
+
+    if (password.length < 8) return res.status(400).json({ error: "New password must be at least 8 characters long" });
 
     try {
         const existingUser = await db.select().from(UserTable).where(eq(UserTable.email, email));
@@ -40,6 +46,7 @@ export async function createUser(req: Request, res: Response) {
             email,
             password: hashedPassword,
             secret_key: generateSecretKey(),
+            phone_number: phoneNumber
         }).returning({
             id: UserTable.id,
             name: UserTable.name,
