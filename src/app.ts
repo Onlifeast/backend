@@ -1,6 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import authRouter from './routes/authRoutes.js';
+import businessRouter from './routes/businessRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
+import itemsRouter from './routes/itemRoutes.js';
 
 export const app = express();
 
@@ -17,3 +22,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/business', businessRouter);
+app.use('/user', userRouter);
+app.use('/cart', cartRouter);
+app.use('/order', orderRouter);
+app.use('/items', itemsRouter);
