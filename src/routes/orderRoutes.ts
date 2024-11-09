@@ -9,7 +9,7 @@ orderRouter.get('/', (req: express.Request, res: express.Response) => {
     getOrders(req, res);
 })
 
-orderRouter.get('/:id', (req: express.Request, res: express.Response) => {
+orderRouter.get('/:orderId', (req: express.Request, res: express.Response) => {
     // get order by id (to admin)
     getOrderById(req, res);
 })
@@ -19,12 +19,12 @@ orderRouter.post('/', (req: express.Request, res: express.Response) => {
     addOrder(req, res);
 })
 
-orderRouter.put('/:id', (req: express.Request, res: express.Response) => {
+orderRouter.put('/:orderId', (req: express.Request, res: express.Response) => {
     // update order (to user)
     updateOrder(req, res);
 })
 
-orderRouter.delete('/:id', (req: express.Request, res: express.Response) => {
+orderRouter.delete('/:orderId', (req: express.Request, res: express.Response) => {
     // delete order (to user)
     deleteOrder(req, res);
 })

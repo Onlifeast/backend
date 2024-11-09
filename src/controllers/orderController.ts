@@ -227,6 +227,10 @@ export async function getOrderById(req: express.Request, res: express.Response) 
 
     const { orderId } = req.params;
 
+    if (!orderId) {
+        return res.status(400).json({success: false, message: 'Order ID is required'});
+    }
+
     try {
         const orderDetails = await db.select({
             id: OrderTable.id,
