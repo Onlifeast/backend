@@ -43,6 +43,7 @@ export const ItemsTable = pgTable('items', {
   item_name: varchar('item_name').notNull(),
   description: text('description').notNull(),
   price: doublePrecision('price').notNull(),
+  stock: integer('stock').notNull(),
   business_id: uuid('business_id').notNull().references(() => BusinessTable.id),
   created_at: timestamp('created_at').defaultNow().notNull(),
   updated_at: timestamp('updated_at').defaultNow().notNull(),
@@ -92,6 +93,7 @@ export const CartItemRelations = relations(CartItemsTable, ({one}) => ({
 export const OrderTable = pgTable('orders', {
   id: uuid('id').primaryKey().defaultRandom(),
   user_id: uuid('user_id').notNull().references(() => UserTable.id),
+  status: varchar('status').notNull().default('pending'),
   created_at: timestamp('created_at').defaultNow().notNull(),
   updated_at: timestamp('updated_at').defaultNow().notNull(),
 });
