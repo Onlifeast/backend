@@ -94,6 +94,7 @@ export const OrderTable = pgTable('orders', {
   id: uuid('id').primaryKey().defaultRandom(),
   user_id: uuid('user_id').notNull().references(() => UserTable.id),
   status: varchar('status').notNull().default('pending'),
+  total_price: doublePrecision('total_price').notNull(),
   created_at: timestamp('created_at').defaultNow().notNull(),
   updated_at: timestamp('updated_at').defaultNow().notNull(),
 });
