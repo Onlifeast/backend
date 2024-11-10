@@ -127,3 +127,20 @@ export const OrderItemsRelations = relations(OrderItemsTable, ({one}) => ({
     references: [ItemsTable.id]
   })
 }));
+
+
+export const PaymentTable = pgTable('payments', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  order_id: uuid('order_id').notNull().references(() => OrderTable.id),
+  amount: doublePrecision('amount').notNull(),
+  status: varchar('status').notNull(),
+  created_at: timestamp('created_at').defaultNow().notNull(),
+  updated_at: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const PaymentRelations = relations(PaymentTable, ({one}) => ({
+  order: one(OrderTable, {
+    fields: [PaymentTable.order_id],
+    references: [OrderTable.id]
+  })
+}));

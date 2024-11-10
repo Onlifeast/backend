@@ -6,6 +6,7 @@ import userRouter from './routes/userRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 import itemsRouter from './routes/itemRoutes.js';
+import paymentRouter from './routes/paymentRoutes.js';
 
 export const app = express();
 
@@ -27,3 +28,4 @@ app.use('/user', userRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/items', itemsRouter);
+app.use('/payment', paymentRouter);
